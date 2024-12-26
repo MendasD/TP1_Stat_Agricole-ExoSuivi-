@@ -1,0 +1,714 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}E:\Ecole\AS2\Semestre1\Stat_agricole\Tp\TP1\diroutput\ExoSuivi.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}26 Dec 2024, 12:37:38
+{txt}
+{com}.         
+. 
+. /*******************************************************************************
+>     PART 2:  Préparation des données
+> ********************************************************************************/
+.         
+.         cd "$dirdo" // On spécifie le répertoire de travail
+{res}E:\Ecole\AS2\Semestre1\Stat_agricole\Tp\TP1\dirdo
+{txt}
+{com}.         
+.         // On importe la base de données excel, contenue dans la "Feuil1" et  
+.         // en spécifiant que la ligne 1 correspond aux variables
+.         import excel "$dirdata\Kawteef.xlsx", sheet("Feuil1") firstrow clear
+{res}{text}(4 vars, 67 obs)
+
+{com}.         
+.         // Nombre d'observations et de variables
+.         display "Nombre d'observations: `c(N)', Nombre de variables: `c(k)'"
+{res}Nombre d'observations: 67, Nombre de variables: 4
+{txt}
+{com}.         
+.         // On labelise les variables de la base
+.         la var Village "Village"
+{txt}
+{com}.         la var Pop "Population du village"
+{txt}
+{com}.         la var Suptot "Superficie totale du village"
+{txt}
+{com}.         
+. /*******************************************************************************
+>     PART 3:  Calculs et analyses
+> ********************************************************************************/
+. 
+.         ** 1. Superficie moyenne par ménage, dans chaque village **
+.         gen superficie_moyenne = Suptot/Pop
+{txt}
+{com}.         la var superficie_moyenne "Superfie moyenne"
+{txt}
+{com}.         
+.         list Village superficie_moyenne
+{txt}
+     {c TLC}{hline 11}{c -}{hline 10}{c TRC}
+     {c |} {res}  Village   superf~e {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+  1. {c |} {res}Village24   3,882577 {txt}{c |}
+  2. {c |} {res}Village12   3,751846 {txt}{c |}
+  3. {c |} {res}Village13   3,762959 {txt}{c |}
+  4. {c |} {res}Village63   4,339268 {txt}{c |}
+  5. {c |} {res} Village2   3,665776 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+  6. {c |} {res}Village46     3,5795 {txt}{c |}
+  7. {c |} {res}Village16   4,576441 {txt}{c |}
+  8. {c |} {res} Village1   3,162206 {txt}{c |}
+  9. {c |} {res} Village8    3,38838 {txt}{c |}
+ 10. {c |} {res}Village31   3,209058 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 11. {c |} {res}Village14      3,658 {txt}{c |}
+ 12. {c |} {res}Village15    3,22365 {txt}{c |}
+ 13. {c |} {res} Village6   3,497824 {txt}{c |}
+ 14. {c |} {res}Village65   2,942741 {txt}{c |}
+ 15. {c |} {res}Village27   3,243241 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 16. {c |} {res}Village22   4,686798 {txt}{c |}
+ 17. {c |} {res}Village39   4,373658 {txt}{c |}
+ 18. {c |} {res}Village51    3,71072 {txt}{c |}
+ 19. {c |} {res}Village57   2,760602 {txt}{c |}
+ 20. {c |} {res} Village4   3,121825 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 21. {c |} {res}Village53   5,510767 {txt}{c |}
+ 22. {c |} {res}Village21   6,168005 {txt}{c |}
+ 23. {c |} {res}Village33   5,882333 {txt}{c |}
+ 24. {c |} {res}Village35   4,367967 {txt}{c |}
+ 25. {c |} {res}Village10   3,728629 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 26. {c |} {res}Village58   4,023408 {txt}{c |}
+ 27. {c |} {res}Village43    4,43198 {txt}{c |}
+ 28. {c |} {res}Village55   4,832881 {txt}{c |}
+ 29. {c |} {res}Village36   3,842851 {txt}{c |}
+ 30. {c |} {res}Village49   5,836231 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 31. {c |} {res}Village23   5,073896 {txt}{c |}
+ 32. {c |} {res}Village59    3,73903 {txt}{c |}
+ 33. {c |} {res}Village64   3,222172 {txt}{c |}
+ 34. {c |} {res}Village47   2,759924 {txt}{c |}
+ 35. {c |} {res}Village18   4,697078 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 36. {c |} {res}Village62   3,833011 {txt}{c |}
+ 37. {c |} {res}Village32   3,496768 {txt}{c |}
+ 38. {c |} {res}Village41   6,804862 {txt}{c |}
+ 39. {c |} {res}Village54   4,072823 {txt}{c |}
+ 40. {c |} {res}Village67   3,724526 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 41. {c |} {res}Village28   4,568633 {txt}{c |}
+ 42. {c |} {res} Village5   3,624618 {txt}{c |}
+ 43. {c |} {res}Village25   5,370528 {txt}{c |}
+ 44. {c |} {res}Village34   3,100783 {txt}{c |}
+ 45. {c |} {res}Village61   3,374555 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 46. {c |} {res}Village19   3,981581 {txt}{c |}
+ 47. {c |} {res}Village20   6,300841 {txt}{c |}
+ 48. {c |} {res}Village44   3,728441 {txt}{c |}
+ 49. {c |} {res} Village7   4,686067 {txt}{c |}
+ 50. {c |} {res}Village66   3,657772 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 51. {c |} {res}Village38   3,616347 {txt}{c |}
+ 52. {c |} {res} Village3    3,28345 {txt}{c |}
+ 53. {c |} {res}Village52   5,686539 {txt}{c |}
+ 54. {c |} {res}Village42   4,540275 {txt}{c |}
+ 55. {c |} {res}Village30   5,382948 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 56. {c |} {res}Village37    3,16169 {txt}{c |}
+ 57. {c |} {res}Village29   6,404359 {txt}{c |}
+ 58. {c |} {res}Village45   5,164752 {txt}{c |}
+ 59. {c |} {res}Village26   5,801664 {txt}{c |}
+ 60. {c |} {res}Village50   4,033193 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 61. {c |} {res}Village60   5,673304 {txt}{c |}
+ 62. {c |} {res}Village17   3,484748 {txt}{c |}
+ 63. {c |} {res}Village11   4,980894 {txt}{c |}
+ 64. {c |} {res} Village9   4,080331 {txt}{c |}
+ 65. {c |} {res}Village40   4,167113 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 10}{c RT}
+ 66. {c |} {res}Village48   4,942023 {txt}{c |}
+ 67. {c |} {res}Village56   3,930492 {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 10}{c BRC}
+
+{com}.         
+.         ** 2. Rendement moyen du mil **
+.         gen r =Prod/Suptot
+{txt}
+{com}.         la var r "Rendement moyen"
+{txt}
+{com}.         
+.         ** 3. Trier les villages par production totale, puis par rendement moyen **
+.         sort Prod r
+{txt}
+{com}.         list Village Prod r
+{txt}
+     {c TLC}{hline 11}{c -}{hline 6}{c -}{hline 10}{c TRC}
+     {c |} {res}  Village   Prod          r {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+  1. {c |} {res}Village56    505   ,7384061 {txt}{c |}
+  2. {c |} {res}Village40    521   ,5815191 {txt}{c |}
+  3. {c |} {res}Village66    533   ,4841101 {txt}{c |}
+  4. {c |} {res} Village9    533   ,5884083 {txt}{c |}
+  5. {c |} {res}Village50    541   ,5707953 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+  6. {c |} {res}Village19    612   ,5263965 {txt}{c |}
+  7. {c |} {res} Village3    618   ,5686304 {txt}{c |}
+  8. {c |} {res}Village37    622   ,5979641 {txt}{c |}
+  9. {c |} {res}Village38    624   ,5732551 {txt}{c |}
+ 10. {c |} {res}Village17    628   ,6724398 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 11. {c |} {res}Village48    630   ,7679407 {txt}{c |}
+ 12. {c |} {res}Village45    636   ,6250884 {txt}{c |}
+ 13. {c |} {res}Village26    642    ,670654 {txt}{c |}
+ 14. {c |} {res}Village60    667   ,7125344 {txt}{c |}
+ 15. {c |} {res}Village11    675     ,73651 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 16. {c |} {res}Village27    684   ,4496805 {txt}{c |}
+ 17. {c |} {res}Village42    702   ,6635888 {txt}{c |}
+ 18. {c |} {res}Village36    703   ,5302525 {txt}{c |}
+ 19. {c |} {res}Village10    714   ,5203568 {txt}{c |}
+ 20. {c |} {res}Village30    714   ,6837169 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 21. {c |} {res}Village61    739   ,6347589 {txt}{c |}
+ 22. {c |} {res}Village25    742   ,6280066 {txt}{c |}
+ 23. {c |} {res}Village31    746    ,462161 {txt}{c |}
+ 24. {c |} {res}Village44    750    ,666081 {txt}{c |}
+ 25. {c |} {res} Village4    752   ,5225266 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 26. {c |} {res}Village34    774    ,663868 {txt}{c |}
+ 27. {c |} {res}Village57    778   ,5238339 {txt}{c |}
+ 28. {c |} {res}Village58    784    ,571436 {txt}{c |}
+ 29. {c |} {res}Village59    790     ,60714 {txt}{c |}
+ 30. {c |} {res}Village47    807   ,6274664 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 31. {c |} {res}Village52    812   ,7476093 {txt}{c |}
+ 32. {c |} {res}Village64    817   ,6307356 {txt}{c |}
+ 33. {c |} {res}Village54    824   ,6699228 {txt}{c |}
+ 34. {c |} {res} Village5    825    ,689728 {txt}{c |}
+ 35. {c |} {res}Village32    826   ,6525362 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 36. {c |} {res}Village65    827   ,5302463 {txt}{c |}
+ 37. {c |} {res}Village18    838   ,6535121 {txt}{c |}
+ 38. {c |} {res}Village15    855   ,5423871 {txt}{c |}
+ 39. {c |} {res} Village7    855   ,7634133 {txt}{c |}
+ 40. {c |} {res}Village35    857   ,6208896 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 41. {c |} {res}Village29    862   ,8308384 {txt}{c |}
+ 42. {c |} {res}Village51    869   ,5825531 {txt}{c |}
+ 43. {c |} {res}Village67    869   ,7245908 {txt}{c |}
+ 44. {c |} {res}Village28    871   ,7276636 {txt}{c |}
+ 45. {c |} {res}Village41    880   ,7105455 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 46. {c |} {res}Village14    881   ,5575046 {txt}{c |}
+ 47. {c |} {res} Village8    883   ,5440428 {txt}{c |}
+ 48. {c |} {res}Village20    888   ,7743603 {txt}{c |}
+ 49. {c |} {res}Village43    894   ,6549212 {txt}{c |}
+ 50. {c |} {res}Village62    932   ,7301828 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 51. {c |} {res}Village23    935   ,7060403 {txt}{c |}
+ 52. {c |} {res} Village6    943   ,6017773 {txt}{c |}
+ 53. {c |} {res}Village22    955   ,6347784 {txt}{c |}
+ 54. {c |} {res}Village53    957   ,6705021 {txt}{c |}
+ 55. {c |} {res}Village39    960   ,6418008 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 56. {c |} {res}Village21    960   ,6796589 {txt}{c |}
+ 57. {c |} {res}Village16    972   ,5818962 {txt}{c |}
+ 58. {c |} {res}Village33    983   ,7051079 {txt}{c |}
+ 59. {c |} {res}Village49    986   ,7442496 {txt}{c |}
+ 60. {c |} {res} Village1   1009   ,6136174 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 61. {c |} {res}Village46   1015    ,585866 {txt}{c |}
+ 62. {c |} {res}Village24   1072   ,4957007 {txt}{c |}
+ 63. {c |} {res}Village55   1076   ,7923186 {txt}{c |}
+ 64. {c |} {res}Village63   1097    ,604803 {txt}{c |}
+ 65. {c |} {res}Village13   1098   ,5699055 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 6}{c -}{hline 10}{c RT}
+ 66. {c |} {res}Village12   1100   ,5321035 {txt}{c |}
+ 67. {c |} {res} Village2   1251   ,6908193 {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 6}{c -}{hline 10}{c BRC}
+
+{com}.         
+.         ** 4. Superficie totale emblavée dans la zone A (villages: 2, 7, 13, 47, 38) **
+.         gen Zone_A = inlist(Village,"Village2","Village7","Village13","Village47","Village38")
+{txt}
+{com}.         egen sup_zoneA = total(Suptot) if Zone_A == 1
+{txt}(62 missing values generated)
+
+{com}.         la var sup_zoneA "Superficie totale Zone A"
+{txt}
+{com}.         
+.         list Village Zone_A sup_zoneA
+{txt}
+     {c TLC}{hline 11}{c -}{hline 8}{c -}{hline 10}{c TRC}
+     {c |} {res}  Village   Zone_A   sup_zo~A {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+  1. {c |} {res}Village56        0          . {txt}{c |}
+  2. {c |} {res}Village40        0          . {txt}{c |}
+  3. {c |} {res}Village66        0          . {txt}{c |}
+  4. {c |} {res} Village9        0          . {txt}{c |}
+  5. {c |} {res}Village50        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+  6. {c |} {res}Village19        0          . {txt}{c |}
+  7. {c |} {res} Village3        0          . {txt}{c |}
+  8. {c |} {res}Village37        0          . {txt}{c |}
+  9. {c |} {res}Village38        1   7232,144 {txt}{c |}
+ 10. {c |} {res}Village17        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 11. {c |} {res}Village48        0          . {txt}{c |}
+ 12. {c |} {res}Village45        0          . {txt}{c |}
+ 13. {c |} {res}Village26        0          . {txt}{c |}
+ 14. {c |} {res}Village60        0          . {txt}{c |}
+ 15. {c |} {res}Village11        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 16. {c |} {res}Village27        0          . {txt}{c |}
+ 17. {c |} {res}Village42        0          . {txt}{c |}
+ 18. {c |} {res}Village36        0          . {txt}{c |}
+ 19. {c |} {res}Village10        0          . {txt}{c |}
+ 20. {c |} {res}Village30        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 21. {c |} {res}Village61        0          . {txt}{c |}
+ 22. {c |} {res}Village25        0          . {txt}{c |}
+ 23. {c |} {res}Village31        0          . {txt}{c |}
+ 24. {c |} {res}Village44        0          . {txt}{c |}
+ 25. {c |} {res} Village4        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 26. {c |} {res}Village34        0          . {txt}{c |}
+ 27. {c |} {res}Village57        0          . {txt}{c |}
+ 28. {c |} {res}Village58        0          . {txt}{c |}
+ 29. {c |} {res}Village59        0          . {txt}{c |}
+ 30. {c |} {res}Village47        1   7232,144 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 31. {c |} {res}Village52        0          . {txt}{c |}
+ 32. {c |} {res}Village64        0          . {txt}{c |}
+ 33. {c |} {res}Village54        0          . {txt}{c |}
+ 34. {c |} {res} Village5        0          . {txt}{c |}
+ 35. {c |} {res}Village32        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 36. {c |} {res}Village65        0          . {txt}{c |}
+ 37. {c |} {res}Village18        0          . {txt}{c |}
+ 38. {c |} {res}Village15        0          . {txt}{c |}
+ 39. {c |} {res} Village7        1   7232,144 {txt}{c |}
+ 40. {c |} {res}Village35        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 41. {c |} {res}Village29        0          . {txt}{c |}
+ 42. {c |} {res}Village51        0          . {txt}{c |}
+ 43. {c |} {res}Village67        0          . {txt}{c |}
+ 44. {c |} {res}Village28        0          . {txt}{c |}
+ 45. {c |} {res}Village41        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 46. {c |} {res}Village14        0          . {txt}{c |}
+ 47. {c |} {res} Village8        0          . {txt}{c |}
+ 48. {c |} {res}Village20        0          . {txt}{c |}
+ 49. {c |} {res}Village43        0          . {txt}{c |}
+ 50. {c |} {res}Village62        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 51. {c |} {res}Village23        0          . {txt}{c |}
+ 52. {c |} {res} Village6        0          . {txt}{c |}
+ 53. {c |} {res}Village22        0          . {txt}{c |}
+ 54. {c |} {res}Village53        0          . {txt}{c |}
+ 55. {c |} {res}Village39        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 56. {c |} {res}Village21        0          . {txt}{c |}
+ 57. {c |} {res}Village16        0          . {txt}{c |}
+ 58. {c |} {res}Village33        0          . {txt}{c |}
+ 59. {c |} {res}Village49        0          . {txt}{c |}
+ 60. {c |} {res} Village1        0          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 61. {c |} {res}Village46        0          . {txt}{c |}
+ 62. {c |} {res}Village24        0          . {txt}{c |}
+ 63. {c |} {res}Village55        0          . {txt}{c |}
+ 64. {c |} {res}Village63        0          . {txt}{c |}
+ 65. {c |} {res}Village13        1   7232,144 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 66. {c |} {res}Village12        0          . {txt}{c |}
+ 67. {c |} {res} Village2        1   7232,144 {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 8}{c -}{hline 10}{c BRC}
+
+{com}.         
+.         ** 5. Production totale dans la zone B **
+.         egen prod_zoneB = total(Prod) if Zone_A == 0
+{txt}(5 missing values generated)
+
+{com}.         la var prod_zoneB "Production totale Zone B"
+{txt}
+{com}.         
+.         list Village Zone_A prod_zoneB
+{txt}
+     {c TLC}{hline 11}{c -}{hline 8}{c -}{hline 10}{c TRC}
+     {c |} {res}  Village   Zone_A   prod_z~B {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+  1. {c |} {res}Village56        0      50065 {txt}{c |}
+  2. {c |} {res}Village40        0      50065 {txt}{c |}
+  3. {c |} {res}Village66        0      50065 {txt}{c |}
+  4. {c |} {res} Village9        0      50065 {txt}{c |}
+  5. {c |} {res}Village50        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+  6. {c |} {res}Village19        0      50065 {txt}{c |}
+  7. {c |} {res} Village3        0      50065 {txt}{c |}
+  8. {c |} {res}Village37        0      50065 {txt}{c |}
+  9. {c |} {res}Village38        1          . {txt}{c |}
+ 10. {c |} {res}Village17        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 11. {c |} {res}Village48        0      50065 {txt}{c |}
+ 12. {c |} {res}Village45        0      50065 {txt}{c |}
+ 13. {c |} {res}Village26        0      50065 {txt}{c |}
+ 14. {c |} {res}Village60        0      50065 {txt}{c |}
+ 15. {c |} {res}Village11        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 16. {c |} {res}Village27        0      50065 {txt}{c |}
+ 17. {c |} {res}Village42        0      50065 {txt}{c |}
+ 18. {c |} {res}Village36        0      50065 {txt}{c |}
+ 19. {c |} {res}Village10        0      50065 {txt}{c |}
+ 20. {c |} {res}Village30        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 21. {c |} {res}Village61        0      50065 {txt}{c |}
+ 22. {c |} {res}Village25        0      50065 {txt}{c |}
+ 23. {c |} {res}Village31        0      50065 {txt}{c |}
+ 24. {c |} {res}Village44        0      50065 {txt}{c |}
+ 25. {c |} {res} Village4        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 26. {c |} {res}Village34        0      50065 {txt}{c |}
+ 27. {c |} {res}Village57        0      50065 {txt}{c |}
+ 28. {c |} {res}Village58        0      50065 {txt}{c |}
+ 29. {c |} {res}Village59        0      50065 {txt}{c |}
+ 30. {c |} {res}Village47        1          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 31. {c |} {res}Village52        0      50065 {txt}{c |}
+ 32. {c |} {res}Village64        0      50065 {txt}{c |}
+ 33. {c |} {res}Village54        0      50065 {txt}{c |}
+ 34. {c |} {res} Village5        0      50065 {txt}{c |}
+ 35. {c |} {res}Village32        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 36. {c |} {res}Village65        0      50065 {txt}{c |}
+ 37. {c |} {res}Village18        0      50065 {txt}{c |}
+ 38. {c |} {res}Village15        0      50065 {txt}{c |}
+ 39. {c |} {res} Village7        1          . {txt}{c |}
+ 40. {c |} {res}Village35        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 41. {c |} {res}Village29        0      50065 {txt}{c |}
+ 42. {c |} {res}Village51        0      50065 {txt}{c |}
+ 43. {c |} {res}Village67        0      50065 {txt}{c |}
+ 44. {c |} {res}Village28        0      50065 {txt}{c |}
+ 45. {c |} {res}Village41        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 46. {c |} {res}Village14        0      50065 {txt}{c |}
+ 47. {c |} {res} Village8        0      50065 {txt}{c |}
+ 48. {c |} {res}Village20        0      50065 {txt}{c |}
+ 49. {c |} {res}Village43        0      50065 {txt}{c |}
+ 50. {c |} {res}Village62        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 51. {c |} {res}Village23        0      50065 {txt}{c |}
+ 52. {c |} {res} Village6        0      50065 {txt}{c |}
+ 53. {c |} {res}Village22        0      50065 {txt}{c |}
+ 54. {c |} {res}Village53        0      50065 {txt}{c |}
+ 55. {c |} {res}Village39        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 56. {c |} {res}Village21        0      50065 {txt}{c |}
+ 57. {c |} {res}Village16        0      50065 {txt}{c |}
+ 58. {c |} {res}Village33        0      50065 {txt}{c |}
+ 59. {c |} {res}Village49        0      50065 {txt}{c |}
+ 60. {c |} {res} Village1        0      50065 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 61. {c |} {res}Village46        0      50065 {txt}{c |}
+ 62. {c |} {res}Village24        0      50065 {txt}{c |}
+ 63. {c |} {res}Village55        0      50065 {txt}{c |}
+ 64. {c |} {res}Village63        0      50065 {txt}{c |}
+ 65. {c |} {res}Village13        1          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 66. {c |} {res}Village12        0      50065 {txt}{c |}
+ 67. {c |} {res} Village2        1          . {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 8}{c -}{hline 10}{c BRC}
+
+{com}.         
+.         ** 6. Rendement moyen du mil dans chaque zone **
+.         // Dans la zone A
+.         egen prod_zoneA = total(Prod) if Zone_A == 1
+{txt}(62 missing values generated)
+
+{com}.         gen r_A = prod_zoneA/sup_zoneA
+{txt}(62 missing values generated)
+
+{com}.         
+.         la var r_A "Rendement moyen de la zone A"
+{txt}
+{com}.         la var prod_zoneA "Production totale Zone A"
+{txt}
+{com}.         
+.         // Dans la zone B
+.         egen sup_zoneB = total(Suptot) if Zone_A == 0
+{txt}(5 missing values generated)
+
+{com}.         gen r_B = prod_zoneB/sup_zoneB
+{txt}(5 missing values generated)
+
+{com}.         
+.         la var r_B "Rendement moyen de la zone B"
+{txt}
+{com}.         la var sup_zoneB "Superficie totale Zone B"
+{txt}
+{com}.         
+.         list Village Zone_A r_A r_B
+{txt}
+     {c TLC}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c TRC}
+     {c |} {res}  Village   Zone_A        r_A        r_B {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+  1. {c |} {res}Village56        0          .   ,6219035 {txt}{c |}
+  2. {c |} {res}Village40        0          .   ,6219035 {txt}{c |}
+  3. {c |} {res}Village66        0          .   ,6219035 {txt}{c |}
+  4. {c |} {res} Village9        0          .   ,6219035 {txt}{c |}
+  5. {c |} {res}Village50        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+  6. {c |} {res}Village19        0          .   ,6219035 {txt}{c |}
+  7. {c |} {res} Village3        0          .   ,6219035 {txt}{c |}
+  8. {c |} {res}Village37        0          .   ,6219035 {txt}{c |}
+  9. {c |} {res}Village38        1   ,6408888          . {txt}{c |}
+ 10. {c |} {res}Village17        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 11. {c |} {res}Village48        0          .   ,6219035 {txt}{c |}
+ 12. {c |} {res}Village45        0          .   ,6219035 {txt}{c |}
+ 13. {c |} {res}Village26        0          .   ,6219035 {txt}{c |}
+ 14. {c |} {res}Village60        0          .   ,6219035 {txt}{c |}
+ 15. {c |} {res}Village11        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 16. {c |} {res}Village27        0          .   ,6219035 {txt}{c |}
+ 17. {c |} {res}Village42        0          .   ,6219035 {txt}{c |}
+ 18. {c |} {res}Village36        0          .   ,6219035 {txt}{c |}
+ 19. {c |} {res}Village10        0          .   ,6219035 {txt}{c |}
+ 20. {c |} {res}Village30        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 21. {c |} {res}Village61        0          .   ,6219035 {txt}{c |}
+ 22. {c |} {res}Village25        0          .   ,6219035 {txt}{c |}
+ 23. {c |} {res}Village31        0          .   ,6219035 {txt}{c |}
+ 24. {c |} {res}Village44        0          .   ,6219035 {txt}{c |}
+ 25. {c |} {res} Village4        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 26. {c |} {res}Village34        0          .   ,6219035 {txt}{c |}
+ 27. {c |} {res}Village57        0          .   ,6219035 {txt}{c |}
+ 28. {c |} {res}Village58        0          .   ,6219035 {txt}{c |}
+ 29. {c |} {res}Village59        0          .   ,6219035 {txt}{c |}
+ 30. {c |} {res}Village47        1   ,6408888          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 31. {c |} {res}Village52        0          .   ,6219035 {txt}{c |}
+ 32. {c |} {res}Village64        0          .   ,6219035 {txt}{c |}
+ 33. {c |} {res}Village54        0          .   ,6219035 {txt}{c |}
+ 34. {c |} {res} Village5        0          .   ,6219035 {txt}{c |}
+ 35. {c |} {res}Village32        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 36. {c |} {res}Village65        0          .   ,6219035 {txt}{c |}
+ 37. {c |} {res}Village18        0          .   ,6219035 {txt}{c |}
+ 38. {c |} {res}Village15        0          .   ,6219035 {txt}{c |}
+ 39. {c |} {res} Village7        1   ,6408888          . {txt}{c |}
+ 40. {c |} {res}Village35        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 41. {c |} {res}Village29        0          .   ,6219035 {txt}{c |}
+ 42. {c |} {res}Village51        0          .   ,6219035 {txt}{c |}
+ 43. {c |} {res}Village67        0          .   ,6219035 {txt}{c |}
+ 44. {c |} {res}Village28        0          .   ,6219035 {txt}{c |}
+ 45. {c |} {res}Village41        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 46. {c |} {res}Village14        0          .   ,6219035 {txt}{c |}
+ 47. {c |} {res} Village8        0          .   ,6219035 {txt}{c |}
+ 48. {c |} {res}Village20        0          .   ,6219035 {txt}{c |}
+ 49. {c |} {res}Village43        0          .   ,6219035 {txt}{c |}
+ 50. {c |} {res}Village62        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 51. {c |} {res}Village23        0          .   ,6219035 {txt}{c |}
+ 52. {c |} {res} Village6        0          .   ,6219035 {txt}{c |}
+ 53. {c |} {res}Village22        0          .   ,6219035 {txt}{c |}
+ 54. {c |} {res}Village53        0          .   ,6219035 {txt}{c |}
+ 55. {c |} {res}Village39        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 56. {c |} {res}Village21        0          .   ,6219035 {txt}{c |}
+ 57. {c |} {res}Village16        0          .   ,6219035 {txt}{c |}
+ 58. {c |} {res}Village33        0          .   ,6219035 {txt}{c |}
+ 59. {c |} {res}Village49        0          .   ,6219035 {txt}{c |}
+ 60. {c |} {res} Village1        0          .   ,6219035 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 61. {c |} {res}Village46        0          .   ,6219035 {txt}{c |}
+ 62. {c |} {res}Village24        0          .   ,6219035 {txt}{c |}
+ 63. {c |} {res}Village55        0          .   ,6219035 {txt}{c |}
+ 64. {c |} {res}Village63        0          .   ,6219035 {txt}{c |}
+ 65. {c |} {res}Village13        1   ,6408888          . {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c RT}
+ 66. {c |} {res}Village12        0          .   ,6219035 {txt}{c |}
+ 67. {c |} {res} Village2        1   ,6408888          . {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 8}{c -}{hline 10}{c -}{hline 10}{c BRC}
+
+{com}.         
+.         ** 7. Créer une variable Subvention pour indiquer si un village a une population ≥ 450 **
+.         gen Subvention = Pop >= 450
+{txt}
+{com}.         la var Subvention "Subvention"
+{txt}
+{com}.         
+.         list Village Pop Subvention
+{txt}
+     {c TLC}{hline 11}{c -}{hline 5}{c -}{hline 10}{c TRC}
+     {c |} {res}  Village   Pop   Subven~n {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+  1. {c |} {res}Village56   174          0 {txt}{c |}
+  2. {c |} {res}Village40   215          0 {txt}{c |}
+  3. {c |} {res}Village66   301          0 {txt}{c |}
+  4. {c |} {res} Village9   222          0 {txt}{c |}
+  5. {c |} {res}Village50   235          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+  6. {c |} {res}Village19   292          0 {txt}{c |}
+  7. {c |} {res} Village3   331          0 {txt}{c |}
+  8. {c |} {res}Village37   329          0 {txt}{c |}
+  9. {c |} {res}Village38   301          0 {txt}{c |}
+ 10. {c |} {res}Village17   268          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 11. {c |} {res}Village48   166          0 {txt}{c |}
+ 12. {c |} {res}Village45   197          0 {txt}{c |}
+ 13. {c |} {res}Village26   165          0 {txt}{c |}
+ 14. {c |} {res}Village60   165          0 {txt}{c |}
+ 15. {c |} {res}Village11   184          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 16. {c |} {res}Village27   469          1 {txt}{c |}
+ 17. {c |} {res}Village42   233          0 {txt}{c |}
+ 18. {c |} {res}Village36   345          0 {txt}{c |}
+ 19. {c |} {res}Village10   368          0 {txt}{c |}
+ 20. {c |} {res}Village30   194          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 21. {c |} {res}Village61   345          0 {txt}{c |}
+ 22. {c |} {res}Village25   220          0 {txt}{c |}
+ 23. {c |} {res}Village31   503          1 {txt}{c |}
+ 24. {c |} {res}Village44   302          0 {txt}{c |}
+ 25. {c |} {res} Village4   461          1 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 26. {c |} {res}Village34   376          0 {txt}{c |}
+ 27. {c |} {res}Village57   538          1 {txt}{c |}
+ 28. {c |} {res}Village58   341          0 {txt}{c |}
+ 29. {c |} {res}Village59   348          0 {txt}{c |}
+ 30. {c |} {res}Village47   466          1 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 31. {c |} {res}Village52   191          0 {txt}{c |}
+ 32. {c |} {res}Village64   402          0 {txt}{c |}
+ 33. {c |} {res}Village54   302          0 {txt}{c |}
+ 34. {c |} {res} Village5   330          0 {txt}{c |}
+ 35. {c |} {res}Village32   362          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 36. {c |} {res}Village65   530          1 {txt}{c |}
+ 37. {c |} {res}Village18   273          0 {txt}{c |}
+ 38. {c |} {res}Village15   489          1 {txt}{c |}
+ 39. {c |} {res} Village7   239          0 {txt}{c |}
+ 40. {c |} {res}Village35   316          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 41. {c |} {res}Village29   162          0 {txt}{c |}
+ 42. {c |} {res}Village51   402          0 {txt}{c |}
+ 43. {c |} {res}Village67   322          0 {txt}{c |}
+ 44. {c |} {res}Village28   262          0 {txt}{c |}
+ 45. {c |} {res}Village41   182          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 46. {c |} {res}Village14   432          0 {txt}{c |}
+ 47. {c |} {res} Village8   479          1 {txt}{c |}
+ 48. {c |} {res}Village20   182          0 {txt}{c |}
+ 49. {c |} {res}Village43   308          0 {txt}{c |}
+ 50. {c |} {res}Village62   333          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 51. {c |} {res}Village23   261          0 {txt}{c |}
+ 52. {c |} {res} Village6   448          0 {txt}{c |}
+ 53. {c |} {res}Village22   321          0 {txt}{c |}
+ 54. {c |} {res}Village53   259          0 {txt}{c |}
+ 55. {c |} {res}Village39   342          0 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 56. {c |} {res}Village21   229          0 {txt}{c |}
+ 57. {c |} {res}Village16   365          0 {txt}{c |}
+ 58. {c |} {res}Village33   237          0 {txt}{c |}
+ 59. {c |} {res}Village49   227          0 {txt}{c |}
+ 60. {c |} {res} Village1   520          1 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 61. {c |} {res}Village46   484          1 {txt}{c |}
+ 62. {c |} {res}Village24   557          1 {txt}{c |}
+ 63. {c |} {res}Village55   281          0 {txt}{c |}
+ 64. {c |} {res}Village63   418          0 {txt}{c |}
+ 65. {c |} {res}Village13   512          1 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 10}{c RT}
+ 66. {c |} {res}Village12   551          1 {txt}{c |}
+ 67. {c |} {res} Village2   494          1 {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 5}{c -}{hline 10}{c BRC}
+
+{com}.         
+.         ** 8. Conserver uniquement les villages où la superficie moyenne par ménage 
+.         ** est < 1 hectare et enregistrer sous pauvres_villages.dta **
+.         keep if superficie_moyenne < 4
+{txt}(32 observations deleted)
+
+{com}.         save "$diroutput\pauvres_villages.dta", replace
+{txt}{p 0 4 2}
+file {bf}
+E:\Ecole\AS2\Semestre1\Stat_agricole\Tp\TP1\diroutput\pauvres_villages.dta{rm}
+saved
+{p_end}
+
+{com}.         
+.         list Village Pop Zone_A superficie_moyenne
+{txt}
+     {c TLC}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c TRC}
+     {c |} {res}  Village   Pop   Zone_A   superf~e {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c RT}
+  1. {c |} {res}Village56   174        0   3,930492 {txt}{c |}
+  2. {c |} {res}Village66   301        0   3,657772 {txt}{c |}
+  3. {c |} {res}Village19   292        0   3,981581 {txt}{c |}
+  4. {c |} {res} Village3   331        0    3,28345 {txt}{c |}
+  5. {c |} {res}Village37   329        0    3,16169 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c RT}
+  6. {c |} {res}Village38   301        1   3,616347 {txt}{c |}
+  7. {c |} {res}Village17   268        0   3,484748 {txt}{c |}
+  8. {c |} {res}Village27   469        0   3,243241 {txt}{c |}
+  9. {c |} {res}Village36   345        0   3,842851 {txt}{c |}
+ 10. {c |} {res}Village10   368        0   3,728629 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 11. {c |} {res}Village61   345        0   3,374555 {txt}{c |}
+ 12. {c |} {res}Village31   503        0   3,209058 {txt}{c |}
+ 13. {c |} {res}Village44   302        0   3,728441 {txt}{c |}
+ 14. {c |} {res} Village4   461        0   3,121825 {txt}{c |}
+ 15. {c |} {res}Village34   376        0   3,100783 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 16. {c |} {res}Village57   538        0   2,760602 {txt}{c |}
+ 17. {c |} {res}Village59   348        0    3,73903 {txt}{c |}
+ 18. {c |} {res}Village47   466        1   2,759924 {txt}{c |}
+ 19. {c |} {res}Village64   402        0   3,222172 {txt}{c |}
+ 20. {c |} {res} Village5   330        0   3,624618 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 21. {c |} {res}Village32   362        0   3,496768 {txt}{c |}
+ 22. {c |} {res}Village65   530        0   2,942741 {txt}{c |}
+ 23. {c |} {res}Village15   489        0    3,22365 {txt}{c |}
+ 24. {c |} {res}Village51   402        0    3,71072 {txt}{c |}
+ 25. {c |} {res}Village67   322        0   3,724526 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 26. {c |} {res}Village14   432        0      3,658 {txt}{c |}
+ 27. {c |} {res} Village8   479        0    3,38838 {txt}{c |}
+ 28. {c |} {res}Village62   333        0   3,833011 {txt}{c |}
+ 29. {c |} {res} Village6   448        0   3,497824 {txt}{c |}
+ 30. {c |} {res} Village1   520        0   3,162206 {txt}{c |}
+     {c LT}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c RT}
+ 31. {c |} {res}Village46   484        0     3,5795 {txt}{c |}
+ 32. {c |} {res}Village24   557        0   3,882577 {txt}{c |}
+ 33. {c |} {res}Village13   512        1   3,762959 {txt}{c |}
+ 34. {c |} {res}Village12   551        0   3,751846 {txt}{c |}
+ 35. {c |} {res} Village2   494        1   3,665776 {txt}{c |}
+     {c BLC}{hline 11}{c -}{hline 5}{c -}{hline 8}{c -}{hline 10}{c BRC}
+
+{com}.         
+.         ** 9. Calculer la taille moyenne par zone et exporter sur Word **
+.         asdoc tabstat (Pop), by(Zone_A) stat(mean) save (« taille_moyenne_par_zone »)
+{res}
+{txt}{space 0}{space 0}{ralign 12:}{space 1}{c |}{space 1}{ralign 9:Pop}{space 1}
+{space 0}{hline 13}{c   +}{hline 11}
+{space 0}{space 0}{ralign 12:0}{space 1}{c |}{space 1}{ralign 9:{res:{sf: 399,7097}}}{space 1}
+{space 0}{space 0}{ralign 12:1}{space 1}{c |}{space 1}{ralign 9:{res:{sf:   443,25}}}{space 1}
+{res}{txt}{p 0 4 2}
+(file {bf}
+Myfile.doc{rm}
+not found)
+{p_end}
+Click to Open File:  {browse "Myfile.doc"}
+
+{com}.         
+.         
+. 
+{txt}end of do-file
+
+{com}. exit, clear
